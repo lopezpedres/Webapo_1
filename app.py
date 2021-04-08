@@ -1,19 +1,22 @@
+#import all the necessary packages
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from send_mail import send_email
 
 
 #create the app and app's name
 app = Flask(__name__)
 
-#if dev, it's development mode. Which means that we are going to store ur data in postgres
-ENV = 'dev'
-if ENV=='dev':
+#if dev, it's development mode. Which means that we are going to store our data in postgres
+ENV = 'prod'
+if ENV == 'development':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123Aapostgres@localhost/lexus'
+    print('this is dev')
 
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://mkcnzewcfnabvp:9a3c01b63813a9cea66d0446133d142e0c33c9fccfb376392730962fc98b5930@ec2-18-233-83-165.compute-1.amazonaws.com:5432/dbvftaq99n20rr'
 
 #We dont want to keep track of this if we dont need it, requires extra memory
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =False
@@ -60,10 +63,10 @@ def submit():
             data=feedBack(customer,dealer,rating,comments)
             db.session.add(data)
             db.session.commit()
+            send_email(customer,dealer,rating,comments)
             return render_template("success.html")
         else: 
              return render_template('index.html', message= 'You have al ready submitted feedback')
 #Esto es para que el programa unicamente corra cuando llamemos a programa.       
 if __name__=='__main__':
-    app.debug = True
     app.run()
