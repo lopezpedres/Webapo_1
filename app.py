@@ -8,15 +8,14 @@ from send_mail import send_email
 app = Flask(__name__)
 
 #if dev, it's development mode. Which means that we are going to store our data in postgres
-ENV = 'prod'
+ENV = 'development'
 if ENV == 'development':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123Aapostgres@localhost/lexus'
-    print('this is dev')
 
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://mkcnzewcfnabvp:9a3c01b63813a9cea66d0446133d142e0c33c9fccfb376392730962fc98b5930@ec2-18-233-83-165.compute-1.amazonaws.com:5432/dbvftaq99n20rr'
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 #We dont want to keep track of this if we dont need it, requires extra memory
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =False
