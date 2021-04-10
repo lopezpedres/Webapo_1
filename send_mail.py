@@ -3,9 +3,9 @@ from email.mime.text import MIMEText
 
 def send_email(customer, dealer, rating, comments):
     server='smtp.mailtrap.io'
-    port = 2525
-    user = '35011c8d7ed2b3'
-    passs = 'f64f860adf07a5'
+    port = ""
+    user = ''
+    passs = ''
    # app.config['MAIL_USE_TLS'] = True
    # app.config['MAIL_USE_SSL'] = False
     message = f""" <h3>This is an email test: </h3>
