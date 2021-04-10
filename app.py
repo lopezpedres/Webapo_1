@@ -15,10 +15,10 @@ if ENV == 'development':
 
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://mkcnzewcfnabvp:9a3c01b63813a9cea66d0446133d142e0c33c9fccfb376392730962fc98b5930@ec2-18-233-83-165.compute-1.amazonaws.com:5432/dbvftaq99n20rr'
 
 #We dont want to keep track of this if we dont need it, requires extra memory
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #creates our db, which works with models
 db = SQLAlchemy(app)
